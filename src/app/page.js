@@ -649,7 +649,7 @@ export default function App() {
                         : 'text-rose-800/70 hover:text-rose-600 hover:bg-white/40'
                     }`}
                   >
-                    🏥 คัดกรองและสัญญาณชีพ
+                    🏥 ซักประวัติ
                   </button>
                   <button
                     onClick={() => setActiveTab('diagnoses')}
@@ -669,7 +669,7 @@ export default function App() {
                         : 'text-rose-800/70 hover:text-rose-600 hover:bg-white/40'
                     }`}
                   >
-                    💊 รายการยารักษา
+                    💊 ใบสั่งยา
                   </button>
                   <button
                     onClick={() => setActiveTab('labs')}
@@ -679,7 +679,7 @@ export default function App() {
                         : 'text-rose-800/70 hover:text-rose-600 hover:bg-white/40'
                     }`}
                   >
-                    🧪 ผลตรวจทางห้องแล็บ
+                    🧪 LAB
                   </button>
                   <button
                     onClick={() => setActiveTab('xrays')}
@@ -689,7 +689,7 @@ export default function App() {
                         : 'text-rose-800/70 hover:text-rose-600 hover:bg-white/40'
                     }`}
                   >
-                    ☢️ ผลเอกซเรย์ X-ray
+                    ☢️ X-ray
                   </button>
                   <button
                     onClick={() => setActiveTab('appointments')}
@@ -944,7 +944,11 @@ export default function App() {
                                         <td className="p-3 text-zinc-600 font-mono font-semibold">{lab.unit}</td>
                                         <td className="p-3 text-zinc-500 font-mono">{lab.normal_value || '-'}</td>
                                         <td className="p-3 text-center">
-                                          <span className="text-[10px] bg-rose-50 border border-rose-100 text-rose-600 py-0.5 px-2 rounded-full font-bold">
+                                           <span className={`text-[10px] py-0.5 px-2.5 rounded-full font-bold border ${
+                                             lab.confirm === 'Y'
+                                               ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
+                                               : 'bg-amber-50 border-amber-200 text-amber-600'
+                                           }`}>
                                             {lab.confirm === 'Y' ? 'Confirmed' : 'Pending'}
                                           </span>
                                         </td>
