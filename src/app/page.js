@@ -451,28 +451,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Quick Demo Patients shortcuts */}
-          <div className="hidden md:flex items-center gap-2 shrink-0">
-            <span className="text-[10px] text-rose-200 font-bold uppercase tracking-wider">ทางลัด:</span>
-            <button
-              onClick={() => {
-                setSearchHn('1234567');
-                handleSearchPatient('1234567');
-              }}
-              className="bg-white/10 hover:bg-white/20 border border-white/10 text-[10px] py-1 px-3 rounded-full text-white font-bold transition duration-200 hover:scale-[1.03] cursor-pointer shadow-sm"
-            >
-              สมชาย (1234567)
-            </button>
-            <button
-              onClick={() => {
-                setSearchHn('1020304');
-                handleSearchPatient('1020304');
-              }}
-              className="bg-white/10 hover:bg-white/20 border border-white/10 text-[10px] py-1 px-3 rounded-full text-white font-bold transition duration-200 hover:scale-[1.03] cursor-pointer shadow-sm"
-            >
-              วัลลภา (1020304)
-            </button>
-          </div>
+
         </div>
 
         {/* User Info Bar */}
