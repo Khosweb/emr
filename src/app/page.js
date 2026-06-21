@@ -510,7 +510,7 @@ export default function App() {
           <div className="w-full flex flex-col gap-6">
             
             {/* 1. Patient Profile Summary Panel - Pink Highlights */}
-            <div className="bg-white/95 backdrop-blur-md border border-rose-100/80 rounded-3xl p-6 flex flex-col md:flex-row md:items-start justify-between gap-6 sticky top-[68px] z-20 shadow-md shadow-rose-200/5 transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
+            <div className="bg-white/80 backdrop-blur-md border border-rose-100/80 rounded-3xl p-6 flex flex-col md:flex-row md:items-start justify-between gap-6 relative shadow-md shadow-rose-200/5 transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center border border-rose-100/80 text-rose-500 font-extrabold text-2xl shadow-inner shadow-rose-100/30">
                   {patientData.patient.sex === '1' ? '👨' : '👩'}
@@ -569,7 +569,7 @@ export default function App() {
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
               
               {/* 2. Left Side: Visits Timeline Column - Locked Header */}
-              <div className="lg:col-span-4 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-250px)] overflow-hidden lg:sticky lg:top-[210px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
+              <div className="lg:col-span-4 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-220px)] overflow-hidden lg:sticky lg:top-[96px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
                 <div className="p-4 border-b border-pink-500 bg-gradient-to-r from-pink-500 to-pink-600 text-white flex items-center justify-between">
                   <h3 className="font-extrabold text-white text-sm">ประวัติการตรวจรักษา ({patientData.visits ? patientData.visits.length : 0} Visits)</h3>
                   <span className="text-[10px] bg-white/20 border border-white/30 text-white py-0.5 px-2.5 rounded-full font-bold shadow-sm">ล่าสุด</span>
@@ -626,7 +626,7 @@ export default function App() {
               </div>
 
               {/* 3. Right Side: Visit Details Viewer - Locked Header */}
-              <div className="lg:col-span-8 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-250px)] overflow-hidden lg:sticky lg:top-[210px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
+              <div className="lg:col-span-8 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-220px)] overflow-hidden lg:sticky lg:top-[96px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
                 <div className="p-4 border-b border-pink-500 bg-gradient-to-r from-pink-500 to-pink-600 text-white flex flex-wrap gap-2 items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-rose-200 font-bold">รายละเอียดของ Visit:</span>
