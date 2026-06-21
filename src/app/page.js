@@ -509,32 +509,32 @@ export default function App() {
         {patientData && (
           <div className="w-full flex flex-col gap-6">
             
-            {/* 1. Patient Profile Summary Panel - Green Highlights */}
-            <div className="bg-gradient-to-br from-emerald-50/50 via-white/90 to-teal-50/40 backdrop-blur-md border border-emerald-500/20 rounded-3xl p-6 flex flex-col md:flex-row md:items-start justify-between gap-6 relative shadow-md shadow-emerald-950/[0.02] transition-all duration-300 hover:shadow-lg hover:shadow-emerald-200/10">
+            {/* 1. Patient Profile Summary Panel - Pink Highlights */}
+            <div className="bg-gradient-to-br from-rose-50/50 via-white/90 to-pink-50/40 backdrop-blur-md border border-rose-100/80 rounded-3xl p-6 flex flex-col md:flex-row md:items-start justify-between gap-6 relative shadow-md shadow-rose-200/5 transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center border border-emerald-100 text-emerald-500 font-extrabold text-2xl shadow-inner shadow-emerald-100/30">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center border border-rose-100/80 text-rose-500 font-extrabold text-2xl shadow-inner shadow-rose-100/30">
                   {patientData.patient.sex === '1' ? '👨' : '👩'}
                 </div>
                 <div className="flex flex-col gap-1 items-center md:items-start text-center md:text-left">
-                  <h2 className="text-xl font-bold text-zinc-800 flex items-center gap-2.5">
+                  <h2 className="text-xl font-bold text-rose-955 flex items-center gap-2.5">
                     {patientData.patient.pname}{patientData.patient.fname} {patientData.patient.lname}
-                    <span className="text-xs bg-emerald-500/10 border border-emerald-200 text-emerald-600 font-extrabold px-2 py-0.5 rounded-md">
+                    <span className="text-xs bg-rose-500/10 border border-rose-200 text-pink-600 font-extrabold px-2 py-0.5 rounded-md">
                       HN: {patientData.patient.hn}
                     </span>
                   </h2>
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-600 mt-1 justify-center md:justify-start font-medium">
-                    <span>เพศ: <strong className="text-zinc-800">{getSexLabel(patientData.patient.sex)}</strong></span>
-                    <span>อายุ: <strong className="text-zinc-800">{patientData.patient.age} ปี</strong></span>
-                    <span>วันเกิด: <strong className="text-zinc-800">{formatDate(patientData.patient.birthday)}</strong></span>
-                    <span>เลขบัตรประชาชน: <strong className="text-zinc-800">{patientData.patient.cid}</strong></span>
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-rose-800/80 mt-1 justify-center md:justify-start font-medium">
+                    <span>เพศ: <strong className="text-rose-900">{getSexLabel(patientData.patient.sex)}</strong></span>
+                    <span>อายุ: <strong className="text-rose-900">{patientData.patient.age} ปี</strong></span>
+                    <span>วันเกิด: <strong className="text-rose-900">{formatDate(patientData.patient.birthday)}</strong></span>
+                    <span>เลขบัตรประชาชน: <strong className="text-rose-900">{formatDate(patientData.patient.cid)}</strong></span>
                   </div>
 
                   {/* Chronic Diseases */}
                   {patientData.chronics && patientData.chronics.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 items-center mt-3">
-                      <span className="text-[10px] text-emerald-600 font-extrabold uppercase tracking-wider">โรคประจำตัว:</span>
+                      <span className="text-[10px] text-pink-600 font-extrabold uppercase tracking-wider">โรคประจำตัว:</span>
                       {patientData.chronics.map((c, i) => (
-                        <span key={i} className="text-[11px] bg-emerald-50 border border-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">
+                        <span key={i} className="text-[11px] bg-rose-50 border border-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-bold">
                           {c.clinic_name}
                         </span>
                       ))}
