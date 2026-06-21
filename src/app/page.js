@@ -146,11 +146,19 @@ export default function App() {
     if (savedSession) {
       try {
         setSession(JSON.parse(savedSession));
+        const savedHn = localStorage.getItem('emr_hn');
+        const savedVn = localStorage.getItem('emr_vn');
+        if (savedHn) {
+          setSearchHn(savedHn);
+          handleSearchPatient(savedHn, savedVn);
+        }
       } catch (e) {
         localStorage.removeItem('emr_session');
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -205,9 +213,11 @@ export default function App() {
     setSelectedVn('');
     setSearchHn('');
     localStorage.removeItem('emr_session');
+    localStorage.removeItem('emr_hn');
+    localStorage.removeItem('emr_vn');
   };
 
-  const handleSearchPatient = async (hnToSearch) => {
+  async function handleSearchPatient(hnToSearch, preferredVn) {
     const hn = hnToSearch || searchHn;
     if (!hn.trim()) return;
 
@@ -226,8 +236,14 @@ export default function App() {
       }
 
       setPatientData(result.data);
-      if (result.data.visits && result.data.visits.length > 0) {
-        handleSelectVisit(result.data.visits[0].vn);
+      localStorage.setItem('emr_hn', hn.trim());
+      
+      const visits = result.data.visits || [];
+      if (visits.length > 0) {
+        const targetVn = preferredVn && visits.some(v => v.vn === preferredVn)
+          ? preferredVn
+          : visits[0].vn;
+        handleSelectVisit(targetVn);
       }
     } catch (err) {
       // Fallback: หากดึงผ่าน API ล้มเหลว ให้ดึงจาก Client-side mockData โดยตรง
@@ -241,8 +257,14 @@ export default function App() {
         }
         const finalMock = { ...mockPatient, patient: patientCopy, isMock: true };
         setPatientData(finalMock);
-        if (finalMock.visits && finalMock.visits.length > 0) {
-          handleSelectVisit(finalMock.visits[0].vn);
+        localStorage.setItem('emr_hn', hn.trim());
+        
+        const visits = finalMock.visits || [];
+        if (visits.length > 0) {
+          const targetVn = preferredVn && visits.some(v => v.vn === preferredVn)
+            ? preferredVn
+            : visits[0].vn;
+          handleSelectVisit(targetVn);
         }
       } else {
         setSearchError('ไม่สามารถดึงข้อมูลได้และไม่พบตัวเลือก HN ในสารระบบจำลอง');
@@ -250,10 +272,11 @@ export default function App() {
     } finally {
       setSearchLoading(false);
     }
-  };
+  }
 
-  const handleSelectVisit = async (vn) => {
+  async function handleSelectVisit(vn) {
     setSelectedVn(vn);
+    localStorage.setItem('emr_vn', vn);
     setVisitLoading(true);
     setVisitDetails(null);
 
@@ -276,7 +299,7 @@ export default function App() {
     } finally {
       setVisitLoading(false);
     }
-  };
+  }
 
   const getSexLabel = (sex) => {
     if (sex === '1') return 'ชาย';
