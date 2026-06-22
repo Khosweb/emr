@@ -329,16 +329,16 @@ export default function App() {
         <div className="absolute top-0 -left-12 w-[600px] h-[600px] bg-rose-200/50 rounded-full filter blur-[150px] opacity-40 animate-pulse"></div>
         <div className="absolute bottom-0 -right-12 w-[600px] h-[600px] bg-pink-150/40 rounded-full filter blur-[150px] opacity-40 animate-pulse"></div>
 
-        <div className="w-full max-w-lg glassmorphism rounded-3xl shadow-2xl shadow-rose-200/30 p-10 flex flex-col gap-8 relative z-10 border border-white/40 transition-all duration-300 hover:shadow-rose-200/40">
+        <div className="w-full max-w-lg glassmorphism rounded-3xl shadow-2xl shadow-rose-200/30 p-6 sm:p-10 flex flex-col gap-6 sm:gap-8 relative z-10 border border-white/40 transition-all duration-300 hover:shadow-rose-200/40">
           <div className="flex flex-col items-center gap-3.5 text-center">
-            <div className="bg-white p-2.5 rounded-3xl shadow-lg shadow-rose-200/60 border border-rose-100 animate-float w-24 h-24 flex items-center justify-center overflow-hidden">
+            <div className="bg-white p-2 sm:p-2.5 rounded-3xl shadow-lg shadow-rose-200/60 border border-rose-100 animate-float w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center overflow-hidden">
               <img
                 src="/logo-khh.png"
                 alt="Logo KHH"
                 className="w-full h-full object-contain"
               />
             </div>
-            <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-rose-900 via-rose-800 to-pink-700 bg-clip-text text-transparent mt-2">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-rose-900 via-rose-800 to-pink-700 bg-clip-text text-transparent mt-2">
               HOSxP EMR Portal
             </h1>
             <p className="text-sm text-pink-600/80 font-bold tracking-wide uppercase">
@@ -405,25 +405,43 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-b from-rose-50/10 via-white to-rose-50/5 text-zinc-800 font-sans flex flex-col antialiased">
       
       {/* Top Header with Search and Shortcuts */}
-      <header className="bg-gradient-to-r from-pink-500 to-pink-600 text-white border-b border-pink-500 sticky top-0 z-30 px-6 py-3.5 flex items-center justify-between gap-6 shadow-md shadow-rose-900/10">
-        <div className="flex items-center gap-6 flex-1 max-w-4xl">
-          {/* Logo */}
-          <div className="flex items-center gap-2.5 shrink-0 hover:scale-[1.02] transition-transform duration-200">
-            <div className="bg-white p-1 rounded-xl shadow-sm border border-white/10 w-9 h-9 flex items-center justify-center overflow-hidden">
-              <img
-                src="/logo-khh.png"
-                alt="Logo KHH"
-                className="w-full h-full object-contain"
-              />
+      <header className="bg-gradient-to-r from-pink-500 to-pink-600 text-white border-b border-pink-500 sticky top-0 z-30 px-4 md:px-6 py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 shadow-md shadow-rose-900/10">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 flex-1 w-full max-w-4xl">
+          {/* Logo & Mobile Action Bar */}
+          <div className="flex items-center justify-between md:justify-start gap-2.5 shrink-0 hover:scale-[1.02] transition-transform duration-200 w-full md:w-auto">
+            <div className="flex items-center gap-2.5">
+              <div className="bg-white p-1 rounded-xl shadow-sm border border-white/10 w-9 h-9 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/logo-khh.png"
+                  alt="Logo KHH"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <h1 className="text-lg font-extrabold text-white tracking-wide leading-none">HOSxP EMR</h1>
+                <p className="text-sm text-rose-200 font-bold tracking-wider uppercase mt-0.5">Records Portal</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-lg font-extrabold text-white tracking-wide leading-none">HOSxP EMR</h1>
-              <p className="text-sm text-rose-200 font-bold tracking-wider uppercase mt-0.5">Records Portal</p>
+            
+            {/* Show Logout on Mobile */}
+            <div className="flex items-center gap-2 md:hidden">
+              {(session.isMock || patientData?.isMock || visitDetails?.isMock) && (
+                <span className="bg-white/20 border border-white/30 text-white text-[10px] font-extrabold py-0.5 px-2 rounded-full tracking-wide">
+                  DEMO
+                </span>
+              )}
+              <button
+                onClick={handleLogout}
+                className="flex items-center justify-center p-1.5 rounded-lg hover:bg-white/10 text-white border border-white/20 transition cursor-pointer"
+                title="Log Out"
+              >
+                <LogOutIcon />
+              </button>
             </div>
           </div>
 
           {/* Search Input */}
-          <div className="flex items-center gap-2 flex-1 max-w-md">
+          <div className="flex items-center gap-2 w-full md:max-w-md">
             <div className="relative flex-1">
               <input
                 type="text"
@@ -444,12 +462,10 @@ export default function App() {
               ค้นหา
             </button>
           </div>
-
-
         </div>
 
-        {/* User Info Bar */}
-        <div className="flex items-center gap-4 shrink-0">
+        {/* User Info Bar (Desktop only) */}
+        <div className="hidden md:flex items-center gap-4 shrink-0">
           <div className="hidden lg:flex items-center gap-3 text-right">
             <div>
               <p className="text-base font-bold text-white">{session.user.name}</p>
@@ -510,9 +526,9 @@ export default function App() {
                   {patientData.patient.sex === '1' ? '👨' : '👩'}
                 </div>
                 <div className="flex flex-col gap-1 items-center md:items-start text-center md:text-left">
-                  <h2 className="text-3xl font-bold text-rose-955 flex items-center gap-2.5">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-rose-955 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
                     {patientData.patient.pname}{patientData.patient.fname} {patientData.patient.lname}
-                    <span className="text-base bg-rose-500/10 border border-rose-200 text-pink-600 font-extrabold px-2.5 py-0.5 rounded-md">
+                    <span className="text-sm sm:text-base bg-rose-500/10 border border-rose-200 text-pink-600 font-extrabold px-2.5 py-0.5 rounded-md">
                       HN: {patientData.patient.hn}
                     </span>
                   </h2>
@@ -575,7 +591,7 @@ export default function App() {
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
               
               {/* 2. Left Side: Visits Timeline Column - Locked Header */}
-              <div className="lg:col-span-4 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-220px)] overflow-hidden lg:sticky lg:top-[96px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
+              <div className={`lg:col-span-4 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-220px)] overflow-hidden lg:sticky lg:top-[96px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10 ${selectedVn ? 'hidden lg:flex' : 'flex'}`}>
                 <div className="p-4 border-b border-pink-500 bg-gradient-to-r from-pink-500 to-pink-600 text-white flex items-center justify-between">
                   <h3 className="font-extrabold text-white text-lg">ประวัติการตรวจรักษา ({patientData.visits ? patientData.visits.length : 0} Visits)</h3>
                   <span className="text-sm bg-white/20 border border-white/30 text-white py-0.5 px-2.5 rounded-full font-bold shadow-sm">ล่าสุด</span>
@@ -632,9 +648,20 @@ export default function App() {
               </div>
 
               {/* 3. Right Side: Visit Details Viewer - Locked Header */}
-              <div className="lg:col-span-8 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md max-h-[600px] lg:max-h-[calc(100vh-220px)] overflow-hidden lg:sticky lg:top-[96px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10">
+              <div className={`lg:col-span-8 bg-white/90 backdrop-blur-md border border-rose-100/80 rounded-3xl flex flex-col shadow-md min-h-[400px] lg:max-h-[calc(100vh-220px)] overflow-hidden lg:sticky lg:top-[96px] transition-all duration-300 hover:shadow-lg hover:shadow-rose-200/10 ${selectedVn ? 'flex' : 'hidden lg:flex'}`}>
                 <div className="p-4 border-b border-pink-500 bg-gradient-to-r from-pink-500 to-pink-600 text-white flex flex-wrap gap-2 items-center justify-between">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
+                    {/* Back Button on Mobile */}
+                    <button
+                      onClick={() => {
+                        setSelectedVn('');
+                        setVisitDetails(null);
+                      }}
+                      className="lg:hidden flex items-center justify-center bg-white/10 hover:bg-white/20 text-white p-1.5 rounded-lg border border-white/20 transition cursor-pointer"
+                      title="ย้อนกลับ"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
                     <span className="text-sm text-rose-200 font-bold">รายละเอียดของ Visit:</span>
                     <strong className="text-base text-white font-extrabold">{selectedVn || 'กรุณาเลือก Visit'}</strong>
                   </div>
