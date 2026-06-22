@@ -395,6 +395,11 @@ export default function App() {
     );
   }
 
+  // กรองเฉพาะรหัสโรค ICD-10 แท้จริงที่มีอักษรนำหน้า (สำหรับใช้แสดงผลในตารางและหัวข้อ)
+  const filteredDiagnoses = visitDetails?.diagnoses
+    ? visitDetails.diagnoses.filter(diag => /^[a-zA-Z]/.test(diag.icd10 || ''))
+    : [];
+
   // APP DASHBOARD SCREEN - Pink & White Light Theme
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50/10 via-white to-rose-50/5 text-zinc-800 font-sans flex flex-col antialiased">
@@ -791,7 +796,7 @@ export default function App() {
                         <div className="flex flex-col gap-6">
                           {/* Diagnoses Table */}
                           <div className="flex flex-col gap-3">
-                            <h4 className="text-sm font-bold text-pink-600 uppercase tracking-wide">การวินิจฉัยโรค (Diagnoses)</h4>
+                            <h4 className="text-sm font-bold text-pink-600 uppercase tracking-wide">การวินิจฉัยโรค (Diagnoses) ({filteredDiagnoses.length})</h4>
                             <div className="border border-rose-100 rounded-xl overflow-y-auto max-h-[300px] shadow-sm relative scrollbar-thin">
                               <table className="w-full text-left text-sm border-collapse">
                                 <thead className="sticky top-0 z-10">
@@ -803,36 +808,29 @@ export default function App() {
                                   </tr>
                                 </thead>
                                 <tbody className="divide-y divide-rose-50">
-                                  {(() => {
-                                    const filteredDiags = (visitDetails.diagnoses || []).filter(
-                                      diag => /^[a-zA-Z]/.test(diag.icd10 || '')
-                                    );
-                                    if (filteredDiags.length > 0) {
-                                      return filteredDiags.map((diag, index) => (
-                                        <tr key={index} className="hover:bg-rose-50/20">
-                                          <td className="p-3 font-mono font-bold text-rose-600">{diag.icd10}</td>
-                                          <td className="p-3 text-rose-955 font-semibold">
-                                            <div>{diag.icd10_name}</div>
-                                            <div className="text-xs text-pink-600/70 mt-0.5 font-medium">{diag.icd10_tname}</div>
-                                          </td>
-                                          <td className="p-3">
-                                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                                              diag.diagtype_name && diag.diagtype_name.includes('PRINCIPLE') ? 'bg-rose-500/10 border border-rose-200 text-pink-600' : 'bg-zinc-100 text-zinc-500'
-                                            }`}>
-                                              {diag.diagtype_name || 'CO-MORBIDITY'}
-                                            </span>
-                                          </td>
-                                          <td className="p-3 text-zinc-600 font-medium">{diag.doctor_name || '-'}</td>
-                                        </tr>
-                                      ));
-                                    } else {
-                                      return (
-                                        <tr>
-                                          <td colSpan={4} className="p-4 text-center text-zinc-400">ไม่มีการระบุการวินิจฉัยโรค</td>
-                                        </tr>
-                                      );
-                                    }
-                                  })()}
+                                  {filteredDiagnoses.length > 0 ? (
+                                    filteredDiagnoses.map((diag, index) => (
+                                      <tr key={index} className="hover:bg-rose-50/20">
+                                        <td className="p-3 font-mono font-bold text-rose-600">{diag.icd10}</td>
+                                        <td className="p-3 text-rose-955 font-semibold">
+                                          <div>{diag.icd10_name}</div>
+                                          <div className="text-xs text-pink-600/70 mt-0.5 font-medium">{diag.icd10_tname}</div>
+                                        </td>
+                                        <td className="p-3">
+                                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                            diag.diagtype_name && diag.diagtype_name.includes('PRINCIPLE') ? 'bg-rose-500/10 border border-rose-200 text-pink-600' : 'bg-zinc-100 text-zinc-500'
+                                          }`}>
+                                            {diag.diagtype_name || 'CO-MORBIDITY'}
+                                          </span>
+                                        </td>
+                                        <td className="p-3 text-zinc-600 font-medium">{diag.doctor_name || '-'}</td>
+                                      </tr>
+                                    ))
+                                  ) : (
+                                    <tr>
+                                      <td colSpan={4} className="p-4 text-center text-zinc-400">ไม่มีการระบุการวินิจฉัยโรค</td>
+                                    </tr>
+                                  )}
                                 </tbody>
                               </table>
                             </div>
