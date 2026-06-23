@@ -224,25 +224,16 @@ export async function POST(request) {
       }
     }
 
-    // If user is not found in database, we require them to be registered in HOSxP to log in
+    // If user is not found in database, we automatically create a session using the values from ProviderID
     if (!dbUser) {
-      if (isMockMode || process.env.BYPASS_PROVIDER_VERIFICATION === 'true') {
-        dbUser = {
-          loginname: 'mock_provider',
-          name: nameTh || 'หมอพร้อม สงบสุข (ทดสอบ)',
-          doctorcode: licenseId || 'D9999',
-          groupname: 'PHYSICIAN',
-          department: 'OPD GENERAL'
-        };
-      } else {
-        return NextResponse.json(
-          { 
-            error: 'ไม่พบข้อมูลใบประกอบวิชาชีพนี้ในระบบโรงพยาบาล HOSxP', 
-            message: `กรุณาติดต่อผู้ดูแลระบบเพื่อตรวจสอบและบันทึกเลขใบประกอบวิชาชีพ (${licenseId || 'ไม่มี'}) หรือชื่อ-นามสกุลแพทย์ (${nameTh}) ให้ตรงในระบบ HOSxP (ตาราง opduser/doctor)` 
-          },
-          { status: 403 }
-        );
-      }
+      console.log('User not found in local HOSxP database. Creating session from Provider ID profile details...');
+      dbUser = {
+        loginname: providerId || licenseId || 'moph_provider',
+        name: nameTh || `${providerProfileData.firstname_th || ''} ${providerProfileData.lastname_th || ''}`.trim() || 'แพทย์กระทรวงสาธารณสุข',
+        doctorcode: licenseId || providerId || '',
+        groupname: 'PHYSICIAN',
+        department: 'OPD GENERAL'
+      };
     }
 
     return NextResponse.json({
