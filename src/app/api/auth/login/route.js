@@ -22,7 +22,7 @@ export async function POST(request) {
     const sql = `
       SELECT loginname, name, doctorcode, groupname, department
       FROM opduser
-      WHERE loginname = ? AND passweb = ? 
+      WHERE (loginname = ? OR doctorcode = ?) AND passweb = ? 
         AND account_disable <> 'Y'
         AND passweb NOT IN (
           'c4ca4238a0b923820dcc509a6f75849b','c20ad4d76fe97759aa27a0c99bff6710','202cb962ac59075b964b07152d234b70',
@@ -33,12 +33,12 @@ export async function POST(request) {
       UNION
       SELECT loginname, name, doctorcode, groupname, department
       FROM opduser_web 
-      WHERE loginname = ? AND passweb = ? 
+      WHERE (loginname = ? OR doctorcode = ?) AND passweb = ? 
         AND account_disable <> 'Y'
       LIMIT 1
     `;
 
-    const results = await query(sql, [username, md5Password, username, md5Password]);
+    const results = await query(sql, [username, username, md5Password, username, username, md5Password]);
 
     if (results.length === 0) {
       return NextResponse.json(
