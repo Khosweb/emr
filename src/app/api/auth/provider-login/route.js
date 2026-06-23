@@ -236,6 +236,9 @@ export async function POST(request) {
       };
     }
 
+    const position = providerProfileData.organization?.[0]?.position || 'แพทย์';
+    const hname = providerProfileData.organization?.[0]?.hname_th || 'กระทรวงสาธารณสุข';
+
     return NextResponse.json({
       success: true,
       message: 'เข้าสู่ระบบสำเร็จผ่าน Provider ID',
@@ -247,7 +250,9 @@ export async function POST(request) {
         department: dbUser.department || 'OPD GENERAL',
         providerId: providerId,
         licenseId: licenseId,
-        loginMethod: 'ProviderID'
+        loginMethod: 'ProviderID',
+        position: position,
+        hname: hname
       },
       token: 'provider-id-session-token'
     });

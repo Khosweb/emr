@@ -534,7 +534,10 @@ export default function App() {
             <div>
               <p className="text-base font-bold text-white">{session.user.name}</p>
               <p className="text-sm text-rose-200 font-bold">
-                {session.user.department || 'OPD GENERAL'}{session.user.group ? ` (${session.user.group})` : ''}
+                {session.user.loginMethod === 'ProviderID'
+                  ? `${session.user.position || 'แพทย์'} (${session.user.hname || 'กระทรวงสาธารณสุข'})`
+                  : `${session.user.department || 'OPD GENERAL'}${session.user.group ? ` (${session.user.group})` : ''}`
+                }
               </p>
             </div>
             <div className="bg-white/10 text-white p-2 rounded-full border border-white/10 shadow-inner animate-pulse">
