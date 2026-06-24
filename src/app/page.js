@@ -398,9 +398,10 @@ export default function App() {
               <label className="text-sm font-bold text-rose-800/80 tracking-wider uppercase">Username / Provider ID</label>
               <input
                 type="text"
-                placeholder="ระบุรหัสเข้าใช้งาน หรือ Provider ID"
+                placeholder="ระบุรหัสเข้าใช้งาน หรือ Provider ID (ปิดใช้งาน)"
                 required
-                className="w-full bg-white/50 border border-rose-100/80 rounded-xl px-4 py-3.5 text-base text-rose-955 placeholder-rose-300 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition duration-300"
+                disabled
+                className="w-full bg-white/50 border border-rose-100/80 rounded-xl px-4 py-3.5 text-base text-rose-955 placeholder-rose-300 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 value={loginForm.username}
                 onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
               />
@@ -410,9 +411,10 @@ export default function App() {
               <label className="text-sm font-bold text-rose-800/80 tracking-wider uppercase">Password</label>
               <input
                 type="password"
-                placeholder="ระบุรหัสผ่าน"
+                placeholder="ระบุรหัสผ่าน (ปิดใช้งาน)"
                 required
-                className="w-full bg-white/50 border border-rose-100/80 rounded-xl px-4 py-3.5 text-base text-rose-900 placeholder-rose-300 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition duration-300"
+                disabled
+                className="w-full bg-white/50 border border-rose-100/80 rounded-xl px-4 py-3.5 text-base text-rose-900 placeholder-rose-300 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 value={loginForm.password}
                 onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
               />
@@ -426,14 +428,10 @@ export default function App() {
 
             <button
               type="submit"
-              disabled={loginLoading}
-              className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white py-3.5 rounded-xl text-base font-bold shadow-lg shadow-rose-200/80 hover:shadow-xl hover:shadow-rose-300/80 disabled:opacity-50 transition duration-200 flex items-center justify-center gap-2 cursor-pointer"
+              disabled={true}
+              className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white py-3.5 rounded-xl text-base font-bold shadow-lg shadow-rose-200/80 hover:shadow-xl hover:shadow-rose-300/80 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200 flex items-center justify-center gap-2"
             >
-              {loginLoading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              ) : (
-                'เข้าสู่ระบบ EMR'
-              )}
+              เข้าสู่ระบบ EMR (ปิดใช้งาน)
             </button>
 
             <div className="relative flex py-1 items-center">
