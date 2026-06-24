@@ -502,15 +502,15 @@ export default function App() {
           {/* Logo & Mobile Action Bar */}
           <div className="flex items-center justify-between md:justify-start gap-2.5 shrink-0 hover:scale-[1.02] transition-transform duration-200 w-full md:w-auto">
             <div className="flex items-center gap-2.5">
-              <div className="bg-white p-1 rounded-xl shadow-sm border border-white/10 w-9 h-9 flex items-center justify-center overflow-hidden">
+              <div className="bg-white p-1 rounded-xl shadow-sm border border-white/10 w-10 h-10 flex items-center justify-center overflow-hidden">
                 <img
-                  src="/logo-khh.png"
-                  alt="Logo KHH"
+                  src="/logo.png"
+                  alt="Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
               <div>
-                <h1 className="text-lg font-extrabold text-white tracking-wide leading-none">HOSxP EMR</h1>
+                <h1 className="text-lg font-extrabold text-white tracking-wide leading-none">HOSxP EMR RECORD</h1>
                 <p className="text-sm text-rose-200 font-bold tracking-wider uppercase mt-0.5">Records Portal</p>
               </div>
             </div>

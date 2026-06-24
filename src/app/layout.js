@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "HOSxP EMR RECORDS PORTAL",
+  title: "KHOS EMR RECORD PORTAL",
   description: "ระบบสืบค้นเวชระเบียนผู้ป่วยอิเล็กทรอนิกส์ (EMR)",
 };
 
